@@ -2,14 +2,16 @@ class Ahorcado
 	def initialize 
 		@secret = "elefante"
 		@intentos = 6
-# my_string.include? "cde"
 	end
+
 	def palabra_secreta
 		@secret
 	end
+
 	def intentos
 		@intentos
 	end
+
 	def adivinar(letra)
 		if (@secret.include? letra)
 			return true
@@ -18,4 +20,5 @@ class Ahorcado
 			return false
 		end
 	end 
+
 end
