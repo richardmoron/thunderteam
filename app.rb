@@ -6,7 +6,7 @@ get '/' do
 end
 
 post '/Principal' do
-	@@ahorcado = Ahorcado.new()
+	@@ahorcado = Ahorcado.new(params[:secreta],params[:pista])
 	@longitud = @@ahorcado.palabra_secreta.size
 	@columnas = ''
 	@longitud.times do 

@@ -1,6 +1,7 @@
 class Ahorcado
-	def initialize 
-		@secret = "elefante"
+	def initialize(palabra_secreta, pista )
+		@secret = palabra_secreta
+		@pista = pista
 		@vector_secreto = @secret.split("")
 		@vector_resolucion= []
 		@vector_secreto.length.times do
@@ -21,6 +22,11 @@ class Ahorcado
 
 	def palabra_secreta
 		@secret
+	end
+	
+	def pista
+		@vidas -= 1
+		@pista
 	end
 	
 	def vector_secreto
