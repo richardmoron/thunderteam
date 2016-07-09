@@ -12,5 +12,9 @@ Feature: Jugar
 	Given estoy en la pagina de fin del juego
 	Then quiero ver el mensaje "Juego Finalizado"
 
+	Scenario: Estado de Juego
+	Given estoy en la pagina principal del juego
+	Then quiero ver el mensaje "Estado del Juego: Iniciado"
+
 
 
