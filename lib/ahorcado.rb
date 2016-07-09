@@ -7,6 +7,16 @@ class Ahorcado
 			@vector_resolucion.push("")
 		end
 		@vidas = 6
+		@estado_juego = 0
+		@intentos = 0
+	end
+	
+	def estado_juego
+		@estado_juego
+	end
+	
+	def intentos
+		@intentos
 	end
 
 	def palabra_secreta
@@ -33,6 +43,13 @@ class Ahorcado
 		else
 			@vidas -= 1
 		end
+		if @vidas == 0
+			@estado_juego = -1
+		end
+		if(@vidas > 0 && @vector_secreto == @vector_resolucion)
+			@estado_juego = 1
+		end
+		@intentos += 1
 		@vector_resolucion
 	end  
 
