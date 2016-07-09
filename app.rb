@@ -53,23 +53,37 @@ post '/Adivinar' do
 		
 	end
 	@estado = ""
-	if @@ahorcado.estado_juego() == 0
-		@estado = "Jugando"	
-	end
-	if @@ahorcado.estado_juego() == -1
-		@estado = "Perdio"	
-	end
-	if @@ahorcado.estado_juego() == 1
-		@estado = "Gano"	
-	end
 	
 	@intentos_fallidos = 6  - @@ahorcado.vidas()
 	@intentos_restantes = @@ahorcado.vidas()
 	@intentos = @@ahorcado.intentos()
-    erb :Principal
+
+	if @@ahorcado.estado_juego() == 0
+		@estado = "Jugando"	
+		
+	end
+	if @@ahorcado.estado_juego() == -1
+		@estado = "Perdio"
+		redirect '/Fin'	
+	end
+	if @@ahorcado.estado_juego() == 1
+		@estado = "Gano"
+		redirect '/Fin'	
+	end
+ erb :Principal
+	  
 end
 
 get '/Fin' do
+	if @@ahorcado.estado_juego() == -1
+		@estado = "Perdio"
+	end
+	if @@ahorcado.estado_juego() == 1
+		@estado = "Gano"
+	end
   erb :Fin
 end
 
+post '/Fin' do
+  erb :Fin
+end
