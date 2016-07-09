@@ -6,7 +6,7 @@ get '/' do
 end
 
 get '/Principal' do
-	@@ahorcado = Ahorcado.new()
+	@@ahorcado = Ahorcado.new(@@secreta,@@pista)
 	@longitud = @@ahorcado.palabra_secreta.size
 	@columnas = ''
 	@longitud.times do 
@@ -17,8 +17,10 @@ get '/Principal' do
     erb :Principal
 end
 
-post '/Principal' do
-	@@ahorcado = Ahorcado.new(params[:secreta],params[:pista])
+post '/Iniciar' do
+	@@secreta = params[:secreta]
+	@@pista = params[:pista]
+	@@ahorcado = Ahorcado.new(@@secreta,@@pista)
 	@longitud = @@ahorcado.palabra_secreta.size
 	@columnas = ''
 	@longitud.times do 
