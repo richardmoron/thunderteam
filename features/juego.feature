@@ -16,15 +16,5 @@ Feature: Jugar
 	Given estoy en la pagina principal del juego
 	Then quiero ver el mensaje "Estado del Juego: Iniciado"
 
-	Scenario: Estado de Juego
-	Given estoy en la pagina principal del juego
-	Then quiero ver el mensaje "Intentos del Juego: 0"
-	
-	Scenario: Jugando
-	Given estoy en la pagina principal del juego
-	When presiono el boton "Adivinar"
-	Then quiero ver el mensaje "Jugando"
-
-	
 
 
