@@ -38,7 +38,7 @@ class Ahorcado
 	end
 
 	def adivinar(letra)
-		if (@secret.include? letra)
+		if (letra != "" and @secret.include? letra)
 		    posicion = 0
 			@vector_secreto.each do |letra_secreta|
 				if(letra == letra_secreta)

@@ -31,6 +31,11 @@ post '/Iniciar' do
     erb :Principal
 end
 
+post '/mostrar_pista' do 
+	@pista = @@ahorcado.pista
+	erb :Principal
+end
+
 post '/Adivinar' do
 	letra = params[:letra]
 	@vector = @@ahorcado.adivinar(letra)
