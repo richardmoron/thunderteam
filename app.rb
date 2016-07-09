@@ -1,6 +1,10 @@
 require 'sinatra'
 require './lib/ahorcado.rb'
 
+configure do
+    set :ahorcado , nil
+end
+
 get '/' do	
     erb :Inicio
 end
@@ -23,6 +27,7 @@ post '/Iniciar' do
 	@@secreta = params[:secreta]
 	@@pista = params[:pista]
 	@@ahorcado = Ahorcado.new(@@secreta,@@pista)
+	settings.ahorcado = Ahorcado.new(@@secreta,@@pista)
 	@longitud = @@ahorcado.palabra_secreta.size
 	@columnas = ''
 	@longitud.times do 
@@ -36,6 +41,15 @@ post '/Iniciar' do
 end
 
 post '/mostrar_pista' do 
+	@columnas = ''
+	settings.ahorcado.vector_resolucion.each do |x| 
+		if x == ''
+			@columnas += '<td>&nbsp;</td>'
+		else
+			@columnas += "<td>#{x}</td>"
+		end
+		
+	end
 	@pista = @@ahorcado.pista
 	erb :Principal
 end
