@@ -1,24 +1,24 @@
 class Ahorcado
 	def initialize 
 		@secret = "elefante"
-		@intentos = 6
+		@vidas = 6
 	end
 
 	def palabra_secreta
 		@secret
 	end
 
-	def intentos
-		@intentos
+	def vidas
+		@vidas
 	end
 
 	def adivinar(letra)
 		if (@secret.include? letra)
 			return true
 		else
-			@intentos -= 1
+			@vidas -= 1
 			return false
 		end
-	end 
+	end  
 
 end
