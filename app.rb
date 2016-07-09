@@ -10,8 +10,8 @@ get '/' do
 end
 
 get '/Principal' do
-	@@ahorcado = Ahorcado.new(@@secreta,@@pista)
-	@longitud = @@ahorcado.palabra_secreta.size
+	settings.ahorcado = Ahorcado.new(@@secreta,@@pista)
+	@longitud = settings.ahorcado.palabra_secreta.size
 	@columnas = ''
 	@longitud.times do 
 		@columnas += '<td>&nbsp;</td>'
@@ -24,11 +24,10 @@ get '/Principal' do
 end
 
 post '/Iniciar' do
+	settings.ahorcado = Ahorcado.new(params[:secreta],params[:pista])
 	@@secreta = params[:secreta]
 	@@pista = params[:pista]
-	@@ahorcado = Ahorcado.new(@@secreta,@@pista)
-	settings.ahorcado = Ahorcado.new(@@secreta,@@pista)
-	@longitud = @@ahorcado.palabra_secreta.size
+	@longitud = settings.ahorcado.palabra_secreta.size
 	@columnas = ''
 	@longitud.times do 
 		@columnas += '<td>&nbsp;</td>'
@@ -50,13 +49,13 @@ post '/mostrar_pista' do
 		end
 		
 	end
-	@pista = @@ahorcado.pista
+	@pista = settings.ahorcado.pista
 	erb :Principal
 end
 
 post '/Adivinar' do
 	letra = params[:letra]
-	@vector = @@ahorcado.adivinar(letra)
+	@vector = settings.ahorcado.adivinar(letra)
 	@columnas = ''
 	@vector.each do |x| 
 		if x == ''
@@ -67,19 +66,19 @@ post '/Adivinar' do
 		
 	end
 	@estado = ""
-	if @@ahorcado.estado_juego() == 0
+	if settings.ahorcado.estado_juego() == 0
 		@estado = "Jugando"	
 	end
-	if @@ahorcado.estado_juego() == -1
+	if settings.ahorcado.estado_juego() == -1
 		@estado = "Perdio"	
 	end
-	if @@ahorcado.estado_juego() == 1
+	if settings.ahorcado.estado_juego() == 1
 		@estado = "Gano"	
 	end
 	
-	@intentos_fallidos = 6  - @@ahorcado.vidas()
-	@intentos_restantes = @@ahorcado.vidas()
-	@intentos = @@ahorcado.intentos()
+	@intentos_fallidos = 6  - settings.ahorcado.vidas()
+	@intentos_restantes = settings.ahorcado.vidas()
+	@intentos = settings.ahorcado.intentos()
     erb :Principal
 end
 
