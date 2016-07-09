@@ -5,6 +5,18 @@ get '/' do
     erb :Inicio
 end
 
+get '/Principal' do
+	@@ahorcado = Ahorcado.new()
+	@longitud = @@ahorcado.palabra_secreta.size
+	@columnas = ''
+	@longitud.times do 
+		@columnas += '<td>&nbsp;</td>'
+	end
+	@estado = "Iniciado"
+	@intentos = 0
+    erb :Principal
+end
+
 post '/Principal' do
 	@@ahorcado = Ahorcado.new(params[:secreta],params[:pista])
 	@longitud = @@ahorcado.palabra_secreta.size
@@ -12,7 +24,7 @@ post '/Principal' do
 	@longitud.times do 
 		@columnas += '<td>&nbsp;</td>'
 	end
-	@estado = "Juego Iniciado"
+	@estado = "Iniciado"
 	@intentos = 0
     erb :Principal
 end
@@ -29,7 +41,7 @@ post '/Adivinar' do
 		end
 		
 	end
-	@estado = "Juego Iniciado"
+	@estado = ""
 	if @@ahorcado.estado_juego() == 0
 		@estado = "Jugando"	
 	end
