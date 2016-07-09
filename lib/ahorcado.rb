@@ -12,6 +12,10 @@ class Ahorcado
 		@intentos = 0
 	end
 	
+	def vector_resolucion
+		@vector_resolucion
+	end
+
 	def estado_juego
 		@estado_juego
 	end

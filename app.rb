@@ -1,13 +1,17 @@
 require 'sinatra'
 require './lib/ahorcado.rb'
 
+configure do
+    set :ahorcado , nil
+end
+
 get '/' do	
     erb :Inicio
 end
 
 get '/Principal' do
-	@@ahorcado = Ahorcado.new(@@secreta,@@pista)
-	@longitud = @@ahorcado.palabra_secreta.size
+	settings.ahorcado = Ahorcado.new(@@secreta,@@pista)
+	@longitud = settings.ahorcado.palabra_secreta.size
 	@columnas = ''
 	@longitud.times do 
 		@columnas += '<td>&nbsp;</td>'
@@ -20,10 +24,10 @@ get '/Principal' do
 end
 
 post '/Iniciar' do
+	settings.ahorcado = Ahorcado.new(params[:secreta],params[:pista])
 	@@secreta = params[:secreta]
 	@@pista = params[:pista]
-	@@ahorcado = Ahorcado.new(@@secreta,@@pista)
-	@longitud = @@ahorcado.palabra_secreta.size
+	@longitud = settings.ahorcado.palabra_secreta.size
 	@columnas = ''
 	@longitud.times do 
 		@columnas += '<td>&nbsp;</td>'
@@ -36,13 +40,22 @@ post '/Iniciar' do
 end
 
 post '/mostrar_pista' do 
-	@pista = @@ahorcado.pista
+	@columnas = ''
+	settings.ahorcado.vector_resolucion.each do |x| 
+		if x == ''
+			@columnas += '<td>&nbsp;</td>'
+		else
+			@columnas += "<td>#{x}</td>"
+		end
+		
+	end
+	@pista = settings.ahorcado.pista
 	erb :Principal
 end
 
 post '/Adivinar' do
 	letra = params[:letra]
-	@vector = @@ahorcado.adivinar(letra)
+	@vector = settings.ahorcado.adivinar(letra)
 	@columnas = ''
 	@vector.each do |x| 
 		if x == ''
@@ -54,31 +67,29 @@ post '/Adivinar' do
 	end
 	@estado = ""
 	
-	@intentos_fallidos = 6  - @@ahorcado.vidas()
-	@intentos_restantes = @@ahorcado.vidas()
-	@intentos = @@ahorcado.intentos()
+	@intentos_fallidos = 6  - settings.ahorcado.vidas()
+	@intentos_restantes = settings.ahorcado.vidas()
+	@intentos = settings.ahorcado.intentos()
 
-	if @@ahorcado.estado_juego() == 0
+	if settings.ahorcado.estado_juego() == 0
 		@estado = "Jugando"	
-		
 	end
-	if @@ahorcado.estado_juego() == -1
+	if settings.ahorcado.estado_juego() == -1
 		@estado = "Perdio"
 		redirect '/Fin'	
 	end
-	if @@ahorcado.estado_juego() == 1
+	if settings.ahorcado.estado_juego() == 1
 		@estado = "Gano"
 		redirect '/Fin'	
 	end
  erb :Principal
-	  
 end
 
 get '/Fin' do
-	if @@ahorcado.estado_juego() == -1
+	if settings.ahorcado.estado_juego() == -1
 		@estado = "Perdio"
 	end
-	if @@ahorcado.estado_juego() == 1
+	if settings.ahorcado.estado_juego() == 1
 		@estado = "Gano"
 	end
   erb :Fin

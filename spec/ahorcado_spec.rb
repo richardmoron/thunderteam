@@ -4,6 +4,23 @@ describe Ahorcado do
 		ahorcado = Ahorcado.new("elefante", "mamifero mas grande terrestre")
 		ahorcado.palabra_secreta.should == "elefante"
 	end 
+	it "deberia devolver el vector resolucion cuando se crea " do 
+		ahorcado = Ahorcado.new("elefante", "mamifero mas grande terrestre")
+		ahorcado.vector_resolucion.should == ["","","","","","","",""]
+	end 
+	it "el vector resolucion deberia devolver letras cuando acierta la secreta " do 
+		ahorcado = Ahorcado.new("elefante", "mamifero mas grande terrestre")
+		ahorcado.adivinar("e")
+		ahorcado.vector_resolucion.should == ["e","","e","","","","","e"]
+	end 
+	it "el vector resolucion deberia devolver solo las letras acertadas " do 
+		ahorcado = Ahorcado.new("elefante", "mamifero mas grande terrestre")
+		ahorcado.adivinar("e")
+		ahorcado.adivinar("b")
+		ahorcado.adivinar("a")
+		ahorcado.adivinar("z")
+		ahorcado.vector_resolucion.should == ["e","","e","","a","","","e"]
+	end 
 	it "deberia devolver la pista cuando se crea " do 
 		ahorcado = Ahorcado.new("elefante", "mamifero mas grande terrestre")
 		ahorcado.pista.should == "mamifero mas grande terrestre"
