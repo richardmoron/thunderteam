@@ -10,7 +10,7 @@ get '/Principal' do
 	@longitud = @@ahorcado.palabra_secreta.size
 	@columnas = ''
 	@longitud.times do 
-		@columnas += '<td>&nbsp;</td>'
+		@columnas += '<td>_</td>'
 	end
 	@estado = "Iniciado"
 	@intentos = 0
@@ -26,7 +26,7 @@ post '/Iniciar' do
 	@longitud = @@ahorcado.palabra_secreta.size
 	@columnas = ''
 	@longitud.times do 
-		@columnas += '<td>&nbsp;</td>'
+		@columnas += '<td>_</td>'
 	end
 	@estado = "Iniciado"
 	@intentos = 0
@@ -42,11 +42,11 @@ end
 
 post '/Adivinar' do
 	letra = params[:letra]
-	@vector = @@ahorcado.adivinar(letra)
+	@@vector = @@ahorcado.adivinar(letra)
 	@columnas = ''
-	@vector.each do |x| 
+	@@vector.each do |x| 
 		if x == ''
-			@columnas += '<td>&nbsp;</td>'
+			@columnas += '<td>_</td>'
 		else
 			@columnas += "<td>#{x}</td>"
 		end
