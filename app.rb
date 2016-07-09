@@ -36,6 +36,7 @@ post '/Iniciar' do
 	@intentos = 0
 	@intentos_fallidos = 0
 	@intentos_restantes = 0
+	@imagen_ahorcado ="<img src='/img/#{@intentos_fallidos}.png' />"
     erb :Principal
 end
 
@@ -70,6 +71,7 @@ post '/Adivinar' do
 	@intentos_fallidos = 6  - settings.ahorcado.vidas()
 	@intentos_restantes = settings.ahorcado.vidas()
 	@intentos = settings.ahorcado.intentos()
+	@imagen_ahorcado ="<img src='/img/#{@intentos_fallidos}.png' />"
 
 	if settings.ahorcado.estado_juego() == 0
 		@estado = "Jugando"	
@@ -82,15 +84,19 @@ post '/Adivinar' do
 		@estado = "Gano"
 		redirect '/Fin'	
 	end
+
  erb :Principal
 end
 
 get '/Fin' do
+	@intentos_fallidos = 6  - settings.ahorcado.vidas()
 	if settings.ahorcado.estado_juego() == -1
 		@estado = "Perdio"
+		@imagen_ahorcado ="<img src='/img/#{@intentos_fallidos}.png' />"
 	end
 	if settings.ahorcado.estado_juego() == 1
 		@estado = "Gano"
+		@imagen_ahorcado ="<img src='/img/copa.png' />"
 	end
   erb :Fin
 end
