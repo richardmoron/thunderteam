@@ -10,17 +10,14 @@
 		</style>
 	</head>
 	<body>
-		<form method='post'>
+		<form id='f1' method='post' action='/Adivinar'>
 			<h1>Juego Iniciado</h1>
 			<br />
 			<br />
 			<table>
 				<tbody>
 					<tr>
-						<td>1</td>
-						<td>2</td> 
-						<td>3</td>
-						<td>4</td> 
+						<%=@columnas%>
 					</tr>
 				</tbody>
 			</table>
@@ -29,6 +26,12 @@
 			<label>Ingrese la letra</label>
 			<input type='text' name='letra'/>		
 			<input type='submit' value='Adivinar'>	
+			<br />
+			<br />
+			<label>Intentos del Juego: <%=@intentos%></label>
+			<br />
+			<label>Estado del Juego: <%=@estado%></label>
 		</form>
+		
 	</body>
 </html>
