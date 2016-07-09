@@ -24,11 +24,14 @@
 			<br />
 			<br />
 			<label>Ingrese la letra</label>
-			<input type='text' name='letra'/>		
+			<input type='text' name='letra' maxlength="1" style="width:30px;"/>		
 			<input type='submit' value='Adivinar'>	
 			<br />
 			<br />
 			<label>Intentos del Juego: <%=@intentos%></label>
+			<br />
+			<span>Intentos Fallidos del Juego: <label style="color:red"><%=@intentos_fallidos%></label></span><br />
+			<span>Intentos Restantes del Juego: <label style="color:green"><%=@intentos_restantes%></label></span>
 			<br />
 			<label>Estado del Juego: <%=@estado%></label>
 		</form>

@@ -14,6 +14,8 @@ get '/Principal' do
 	end
 	@estado = "Iniciado"
 	@intentos = 0
+	@intentos_fallidos = 0
+	@intentos_restantes = 0
     erb :Principal
 end
 
@@ -28,6 +30,8 @@ post '/Iniciar' do
 	end
 	@estado = "Iniciado"
 	@intentos = 0
+	@intentos_fallidos = 0
+	@intentos_restantes = 0
     erb :Principal
 end
 
@@ -58,7 +62,9 @@ post '/Adivinar' do
 	if @@ahorcado.estado_juego() == 1
 		@estado = "Gano"	
 	end
-
+	
+	@intentos_fallidos = 6  - @@ahorcado.vidas()
+	@intentos_restantes = @@ahorcado.vidas()
 	@intentos = @@ahorcado.intentos()
     erb :Principal
 end
